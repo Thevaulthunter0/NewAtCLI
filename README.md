@@ -48,14 +48,17 @@ Ajouter l'application dans les variables d'environnement(PATH) pour pouvoir appe
 
 Création d'objet Remember et ToDo.
 
-+-----------+          +-------------+
-|   To do   |          |   Remember  |
-+-----------+	       +-------------+
-| id        |          | id          |
-| Text      |          | Text        |
-| Date      |          +-------------+
+|  Remember |
+|-----------|
+|Id         |
+|Text       |
+
+| To do     |
+|-----------|
+| id        |
+| Text      |
+| Date      |
 | Done      |
-+-------+---+
 
 L'OOP n'est pas la meilleur approche mais permet de pratiquer mon OOP C++.
 
