@@ -2,6 +2,7 @@
 #include <string>
 #include <filesystem>
 #include <fstream>
+#include "service/DataService.hpp"
 
 //Header
 std::string toLowerCase(std::string text);
@@ -105,7 +106,10 @@ int main(int argc, char* argv[]){
 }
 
 void rememberOption(){
-    std::cout<< "Remember option.";
+    DataService service = DataService();
+    std::cout<< "Remember option.";             /////////////////////ICI////////////////////////////FAIRE AFFICHER getAllRemember()
+    std::string text = service.getAllRemember();
+    std::cout << text << std::endl;
 }
 
 void todoOption(){
