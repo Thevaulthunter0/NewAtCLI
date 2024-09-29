@@ -23,6 +23,11 @@ void Remember::setText(std::string newText){
 } 
 
 std::string Remember::toString(){
-    std::string def = "| " + std::to_string(getId()) + " |  " + getText() + "  |\n";
+    std::string def = "| " + std::to_string(getId()) + " |  " + getText() + "\n";
     return def; 
+}
+
+std::string Remember::formatTo(){
+    std::string format = std::to_string(getId()) + " " + getText();
+    return format;
 }

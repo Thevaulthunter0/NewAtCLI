@@ -16,6 +16,7 @@ class Remember {
         std::string getText();
         void setText(std::string newText);
         std::string toString();
+        std::string formatTo();
 };
 
 #endif 

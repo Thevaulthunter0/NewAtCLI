@@ -6,9 +6,7 @@
 
 //Header
 std::string toLowerCase(std::string text);
-void rememberOption();
 void makeOption(std::filesystem::path currentPath, std::string folderName, std::string fileName);
-void todoOption();
 void helpOption();
 void helpRemember();
 void helpMake();
@@ -21,20 +19,21 @@ $ NewCli -Make <foldername> <filename>
 $ NewCli -remember
 $ NewCli -remember Add <texte>
 $ NewCli -remember Remove <id>
-$ NewCli -remember Modify <id>
+$ NewCli -remember Modify <id> <texte>
 ----------------------------------------
 $ NewCli -todo 
 $ NewCli -todo add <texte> <date>
 $ NewCli -todo remove <id>
 $ NewCli -todo modify <id>
 ----------------------------------------
-$ NewCli -Help
+$ NewCli -Help <option>
 If no arguments is given, give the same output as -help.
 
 Transform all char in all the input as lowercase.
 */
 
 int main(int argc, char* argv[]){
+    DataService service = DataService();
     if(argc <= 1) //No argument was given, return help
     {
         void helpOption();
@@ -72,12 +71,39 @@ int main(int argc, char* argv[]){
         }
         else if(option == "-remember")  
         {
-            rememberOption();
+            if(argc ==  2){  
+                service.getAllRemember();  
+                return 0;
+            }
+            else if(argc == 3 || argc >= 6){ //Si il y a uniquement 3 arguments ou plus que 4 arguments = erreur
+                helpRemember();
+                return 1;
+            }
+            else if(argc == 4 || argc == 5)
+            {
+                std::string arg1 = toLowerCase(argv[2]);
+                if(arg1 == "add"){
+                    std::string arg2 = toLowerCase(argv[3]);
+                    service.AddRemember(arg2);
+                }
+                else if(arg1 == "remove"){
+                    std::string arg2 = toLowerCase(argv[3]);
+                    int id = std::stoi(arg2);
+                    service.RemoveRemember(id);
+                }
+                else if(arg1 == "modify"){
+                    std::string arg2 = toLowerCase(argv[3]);
+                    std::string arg3 = argv[4];
+                    int id = std::stoi(arg2);
+                    service.ModifyRemember(id, arg3);
+                }
+                else{helpRemember();}
+            }
             return 1;
         }
         else if(option == "-todo")
         {
-            todoOption();
+            
             return 1;
         }
         else if(option == "-make")
@@ -103,17 +129,6 @@ int main(int argc, char* argv[]){
     }
 
     return 0;
-}
-
-void rememberOption(){
-    DataService service = DataService();
-    std::cout<< "Remember option.";             /////////////////////ICI////////////////////////////FAIRE AFFICHER getAllRemember()
-    std::string text = service.getAllRemember();
-    std::cout << text << std::endl;
-}
-
-void todoOption(){
-    std::cout<< "todo option.";
 }
 
 void makeOption(std::filesystem::path currentPath, std::string folderName, std::string fileName){
